@@ -1,3 +1,4 @@
+% Excercise 1
 % 1.1
 N = 20;
 n = 10;
@@ -67,14 +68,14 @@ SinfnOut = Sinfn(Fc, Fs, nPeriods);
 
 % Second:
 Fc = 10;       % The Frequency of the wave
-Fs = 1/1000;   % Sampling Freq = 1/Ts
+Fs = 1000;   % Sampling Freq = 1/Ts
 nPeriods = 2;  % Number of periods
 
 SinfnOut = Sinfn(Fc, Fs, nPeriods);
 
 % Third:
 Fc = 10;       % The Frequency of the wave
-Fs = 1/30;     % Sampling Freq = 1/Ts
+Fs = 30;     % Sampling Freq = 1/Ts
 nPeriods = 2;  % Number of periods
 
 SinfnOut = Sinfn(Fc, Fs, nPeriods);
