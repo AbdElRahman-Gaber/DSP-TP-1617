@@ -52,3 +52,35 @@ ylabel('auto correlation')
 % The 0 correlation means that there is no pattern in the signal, it is naturally random
 % The Uniform distribution has a pattern, so its correlation != 0
 
+%% ----------------------------------
+%2.4
+s1 = round(rand(1, 50));
+s2 = round(rand(1, 50));
+s3 = round(rand(1, 50));
+
+s = [s1 s2 s3];
+
+[acor1,lag1] = xcorr(s1, s);
+figure
+plot(lag1, acor1)
+title('Autocorrelation of s1 and s')
+xlabel('lag')
+ylabel('auto correlation')
+
+[acor2,lag2] = xcorr(s2, s);
+figure
+plot(lag2, acor2)
+title('Autocorrelation of s2 and s')
+xlabel('lag')
+ylabel('auto correlation')
+
+[acor3,lag3] = xcorr(s3, s);
+figure
+plot(lag3, acor3)
+title('Autocorrelation of s3 and s')
+xlabel('lag')
+ylabel('auto correlation')
+
+% The 3 correlations are almost the same,
+% I this this is because the 3 original signals are random, and have the same distributions
+
