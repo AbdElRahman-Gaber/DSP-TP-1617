@@ -25,6 +25,6 @@ I will check your codes and answers after each session and evaluate your lab.
 	`git add --all`
 	`git commit -m 'your message'`
 * Pushing your commit to your repository 
-	`git push origin/master`
+	`git push origin master`
 
 
