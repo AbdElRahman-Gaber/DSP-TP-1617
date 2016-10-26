@@ -135,7 +135,7 @@ disp(y_sum);
 
 %3.3
 % nonlinear and noninvariant system proposed is:
-% n*x(n)^2 + x(n-1)
+% y(n) = n*x(n)^2 + x(n-1)
 % it is nonlinear because of the second order term x(n)^2
 % it is noninvariant because of the n multiplied by x(x)^2
 
