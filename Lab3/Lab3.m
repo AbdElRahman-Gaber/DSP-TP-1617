@@ -17,18 +17,18 @@ conv_4 = convFn (x, h4)
 lena = imread('lena-grey.bmp');
 lena = im2double(lena);
 figure; imshow(lena);
-title('Lena Original')
+title('Lena Original');
 
 k = (1.0/256) .* [1 4 6 4 1 ; 4 16 24 16 4 ; 6 24 36 24 6 ; 4 16 24 16 4; 1 4 6 4 1];
 sobel = [-1 0 1; -2 0 2; -1 0 1];
 
 out_gaus = Conv2Fn(lena, k);
 figure; imshow(out_gaus);
-title('Lena applying gaussian filter')
+title('Lena applying gaussian filter');
 
 out_sobel = Conv2Fn(lena, sobel);
 figure; imshow(out_sobel);
-title('Lena applying sobel in x direction')
+title('Lena applying sobel in x direction');
 
 
 %% Ex. 3
@@ -67,9 +67,9 @@ title('correlated image using normalized correlation function: normxcorr2');
 %xoffSet = xpeak-size(BW_a,2);
 
 figure;
+title('matched character using xcorr2');
 hAx1  = axes;
 imshow(BW_text,[]);
-title('matched character using xcorr2');
 
 for i = 1 : 10
     imrect( hAx1, [xpeak1(i)-size(BW_a,1), ypeak1(i)- size(BW_a,2), size(BW_a,2), size(BW_a,1)]);
@@ -78,10 +78,12 @@ end
 
 
 figure;
+title('matched character using normalized correlation normxcorr2');
 hAx2  = axes;
 imshow(BW_text,[]);
-title('matched character using normalized correlation normxcorr2');
 
-for i = 1 : 10
+for i = 1 : length(ypeak2)
     imrect( hAx2, [xpeak2(i)-size(BW_a,1), ypeak2(i)- size(BW_a,2), size(BW_a,2), size(BW_a,1)]);
 end
+
+% https://fr.mathworks.com/help/images/ref/normxcorr2.html
