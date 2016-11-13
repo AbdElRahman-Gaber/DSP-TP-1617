@@ -60,15 +60,15 @@ title('correlated image')
 [ypeak, xpeak] = find(correlation==max(correlation(:))) 
 % set of indeces containig the peaks
 
-yoffSet = ypeak-size(BW_a,1);
-xoffSet = xpeak-size(BW_a,2);
+%yoffSet = ypeak-size(BW_a,1);
+%xoffSet = xpeak-size(BW_a,2);
 
 figure;
 hAx  = axes;
 imshow(BW_text,[]);
 
 for i = 1 : 10
-    imrect( hAx, [xpeak(i), ypeak(i), size(BW_a,2), size(BW_a,1)]);
+    imrect( hAx, [xpeak(i)-size(BW_a,1), ypeak(i)- size(BW_a,2), size(BW_a,2), size(BW_a,1)]);
     %imrect( hAx, [xoffSet+1, yoffSet+1, size(BW_a,2), size(BW_a,1)]);
 end
 
