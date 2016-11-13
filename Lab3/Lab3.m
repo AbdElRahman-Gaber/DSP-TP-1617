@@ -52,23 +52,36 @@ BW_text = im2double(im2bw(text, level_text));
 figure; imshow(BW_text);
 title('text in binary')
 
-%correlation = normxcorr2(BW_a, BW_text);
-correlation = xcorr2(BW_a, BW_text);
-figure; imshow(correlation,[]);
-title('correlated image')
+correlation1 = xcorr2(BW_a, BW_text);
+correlation2 = normxcorr2(BW_a, BW_text);
+figure; imshow(correlation1,[]);
+title('correlated image using xcorr2');
+figure; imshow(correlation2,[]);
+title('correlated image using normalized correlation function: normxcorr2');
 
-[ypeak, xpeak] = find(correlation==max(correlation(:))) 
+[ypeak1, xpeak1] = find(correlation1==max(correlation1(:)));
+[ypeak2, xpeak2] = find(correlation2==max(correlation2(:)));
 % set of indeces containig the peaks
 
 %yoffSet = ypeak-size(BW_a,1);
 %xoffSet = xpeak-size(BW_a,2);
 
 figure;
-hAx  = axes;
+hAx1  = axes;
 imshow(BW_text,[]);
+title('matched character using xcorr2');
 
 for i = 1 : 10
-    imrect( hAx, [xpeak(i)-size(BW_a,1), ypeak(i)- size(BW_a,2), size(BW_a,2), size(BW_a,1)]);
+    imrect( hAx1, [xpeak1(i)-size(BW_a,1), ypeak1(i)- size(BW_a,2), size(BW_a,2), size(BW_a,1)]);
     %imrect( hAx, [xoffSet+1, yoffSet+1, size(BW_a,2), size(BW_a,1)]);
 end
 
+
+figure;
+hAx2  = axes;
+imshow(BW_text,[]);
+title('matched character using normalized correlation normxcorr2');
+
+for i = 1 : 10
+    imrect( hAx2, [xpeak2(i)-size(BW_a,1), ypeak2(i)- size(BW_a,2), size(BW_a,2), size(BW_a,1)]);
+end
