@@ -1,4 +1,4 @@
-function OutSignal = Ramp(a, k, N, n)
+function OutSignal = Geo(a, k, N, n)
 
 if n > N || n < 0
     error('n must be +ve number < 20')
