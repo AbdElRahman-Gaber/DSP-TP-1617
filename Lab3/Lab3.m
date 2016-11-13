@@ -34,34 +34,41 @@ title('Lena applying sobel in x direction')
 %% Ex. 3
 a = imread('a.png', 'png');
 text = imread('text.png', 'png');
-whos
-a = rgb2gray(a);
-figure; imshow(a);
-figure; imshow(text);
+a = imcomplement(a);
+%whos
+%a = rgb2gray(a);
+%figure; imshow(a);
+%figure; imshow(text);
 
 level_a = graythresh(a);
 level_text = graythresh(text);
 
-BW_a = im2bw(a, level_a);
+BW_a = im2double(im2bw(a, level_a));
+%BW_a = imcomplement(BW_a);
 figure; imshow(BW_a);
 title('letter "a" binary')
 
-BW_text = im2bw(text, level_text);
-%BW_text2 = 1.0 - BW_text;
+BW_text = im2double(im2bw(text, level_text));
 figure; imshow(BW_text);
 title('text in binary')
 
-correlation = normxcorr2(BW_a, BW_text);
+%correlation = normxcorr2(BW_a, BW_text);
+correlation = xcorr2(BW_a, BW_text);
+figure; imshow(correlation,[]);
+title('correlated image')
 
-
-[ypeak, xpeak] = find(correlation==max(correlation(:)));
+[ypeak, xpeak] = find(correlation==max(correlation(:))) 
+% set of indeces containig the peaks
 
 yoffSet = ypeak-size(BW_a,1);
 xoffSet = xpeak-size(BW_a,2);
 
 figure;
 hAx  = axes;
-imshow(BW_text,'Parent', hAx);
-imrect(hAx, [xoffSet+1, yoffSet+1, size(BW_a,2), size(BW_a,1)]);
+imshow(BW_text,[]);
 
+for i = 1 : 10
+    imrect( hAx, [xpeak(i), ypeak(i), size(BW_a,2), size(BW_a,1)]);
+    %imrect( hAx, [xoffSet+1, yoffSet+1, size(BW_a,2), size(BW_a,1)]);
+end
 
