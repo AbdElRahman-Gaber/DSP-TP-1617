@@ -80,13 +80,13 @@ end
 figure(); stem (DiracAnticausalSmoothing); title('Dirac Anti-causal Smoothing'); 
 
 % Causal part of smoothing
-dirac_causal_smooth = zeros(length(dirac),1);
+DiracCausalSmoothing = zeros(length(dirac),1);
 
 for i = 3:length(dirac);
- dirac_causal_smooth(i) = -scale*alpha*alpha_signal*dirac(i-1)+(2*alpha_signal)*DiracAnticausalSmoothing(i-1)-(alpha_signal^2)*DiracAnticausalSmoothing(i-2);
+ DiracCausalSmoothing(i) = -scale*alpha*alpha_signal*dirac(i-1)+(2*alpha_signal)*DiracAnticausalSmoothing(i-1)-(alpha_signal^2)*DiracAnticausalSmoothing(i-2);
 end
 
-figure(); stem(dirac_causal_smooth); title('Dirac Causal Smoothing'); 
+figure(); stem(DiracCausalSmoothing); title('Dirac Causal Smoothing'); 
 
 % Step Signal
 step10=Step(40,10);
@@ -114,6 +114,52 @@ end
 figure(); stem (StepAnticausal); title('Anti-Causal Deravative');
 
 %% Ex. 3
+%3.1
+bureau = imread('bureau.gif');
+figure(); imshow(bureau); title('Original'); 
 
+DerivedHorizontal = zeros(size(bureau)); 
+DerivedVertical = zeros(size(bureau)); 
 
+for j = 1:size(bureau, 2)
+    ImgHorz = bureau(:,j);
+    
+    response_causal = zeros(length (ImgHorz),1) ;
+    for i = 3 : length(ImgHorz)
+     response_causal(i) = ImgHorz(i)+alpha_signal*(alpha-1)*ImgHorz(i - 1)+(2*alpha_signal)*response_causal(i-1)-(alpha_signal^2)*response_causal(i-2) ;
+    end
+    
+    response_antiCausal = zeros(length (ImgHorz ),1) ;
+    ImgLength = length(ImgHorz)-2 : -1 : 1 ;
+    for i =  ImgLength
+     response_antiCausal(i) = alpha_signal*(alpha+1)*ImgHorz(i+1)-(alpha_signal^2)*ImgHorz(i+2)+(2*alpha_signal)*response_antiCausal(i+1)-(alpha_signal^2)*response_antiCausal(i+2) ;
+    end
+    
+    response = response_causal + response_antiCausal;
+    
+    DerivedHorizontal(:,j) = response;            
+end
+
+figure(); imshow (DerivedHorizontal, []); title('Horizontal Derivative');
+
+for j = 1:size(bureau, 2)
+
+    ImgVert = bureau(j,:);
+    
+    response_causal = zeros(length (ImgVert),1) ;
+    for i = 3 : length(ImgVert)
+     response_causal(i) = ImgVert(i)+alpha_signal*(alpha-1)*ImgVert(i - 1)+(2*alpha_signal)*response_causal(i-1)-(alpha_signal^2)*response_causal(i-2) ;
+    end
+    
+    response_antiCausal = zeros(length (ImgVert ),1) ;
+    ImgLength = length(ImgVert)-2 : -1 : 1 ;
+    for i =  ImgLength
+     response_antiCausal(i) = alpha_signal*(alpha+1)*ImgVert(i+1)-(alpha_signal^2)*ImgVert(i+2)+(2*alpha_signal)*response_antiCausal(i+1)-(alpha_signal^2)*response_antiCausal(i+2) ;
+    end
+    response2 = response_causal + response_antiCausal;
+    
+    DerivedVertical(j,:) = response2;   
+end
+
+figure(); imshow (DerivedVertical, []); title('Vertical Derivative');
 
